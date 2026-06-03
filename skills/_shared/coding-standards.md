@@ -147,21 +147,72 @@ final class VerizonMediator extends AbstractMediator implements SimCardChangeSta
 | Constant | UPPER_SNAKE_CASE | `ACTIVE_ID` |
 | Grouping folder | PascalCase, `_`-prefix | `_Contracts/`, `_Abstracts/`, `_Traits/` |
 
-### Imports & PHPDoc
+### Imports
 
 - Always `use`-import at the top; **never** an FQCN inline in the code body.
-- In PHPDoc (`@param`/`@return`/`@var`/`@throws`) use FQCN with a leading `\` for IDE resolution.
-- Write a docblock only when it adds value beyond native types — descriptions, `@throws`, generics
-  (`Collection<int, Model>`), or union types not expressible natively.
+- In PHPDoc (`@param`/`@return`/`@var`/`@throws`/`@see`) use FQCN with a leading `\` for IDE
+  resolution.
+
+### PHPDoc — mandatory on every declaration
+
+> **Team rule — overrides the older "only when it adds value" guidance.** A PHPDoc block is
+> **required** on every **class / interface / trait / enum** and on every **method and function** —
+> not only when it adds something beyond the native types. Native types stay on the signature; the
+> docblock documents intent, contracts, and failure modes. A declaration missing its docblock is a
+> finding.
+
+**Every method / function docblock carries:**
+
+- A one-line summary of what it does.
+- `@param` for **every** parameter — `@param  <\FQCN-or-type>  $name  <description>` (FQCN with a
+  leading `\`, columns aligned).
+- `@return` — **always**, including `@return void` / `@return never`.
+- `@throws` — **one line per throwable** the body can raise (the typed domain exceptions, plus
+  `\Throwable` where it propagates). Omit only when the body throws nothing.
+
+**Every class / interface / trait / enum docblock carries:**
+
+- A one-line summary **naming the type** and its responsibility.
+- `@package` — the component / namespace group it belongs to.
+- `@see docs/<doc>.md` — a repo-root-relative link to the **durable doc** under `docs/` that documents
+  this file, **when such a doc exists** (the code→doc backlink — see below). Omit only while the class
+  has no durable doc yet.
+
+**Properties** are not each given their own block: Eloquent model attributes are documented at the
+class level via `@property` / `@property-read` (match the models in `app/Models/`); a plain typed
+property needs a block only where it carries non-obvious meaning.
 
 ```php
 /**
- * @param  string                $iccid
- * @param  \Carbon\CarbonImmutable|null $from
+ * Fetch the provider's monthly usage for a SIM card.
+ *
+ * @param  string                       $iccid  The SIM ICCID.
+ * @param  \Carbon\CarbonImmutable|null  $from   Window start; null = current cycle.
  * @return \App\DTOs\ProviderMonthlyUsageDTO
+ * @throws \App\Exceptions\ProviderUnavailableException
  * @throws \Throwable
  */
+public function getMonthlyUsage(string $iccid, ?CarbonImmutable $from = null): ProviderMonthlyUsageDTO
 ```
+
+```php
+/**
+ * VerizonMediator — talks to the Verizon ThingSpace API for SIM lifecycle + usage.
+ *
+ * @package App\Integrations\Mediators
+ * @see docs/integrations/verizon/architecture.md
+ */
+final class VerizonMediator extends AbstractMediator implements SimCardChangeStatusContract
+```
+
+#### The `@see docs/…md` backlink
+
+The `@see` line is part of **this coding standard** — the **code author** (implementer / reviewer)
+writes it into the class PHPDoc. **`doc-writer` never edits code**: when it creates or updates the
+durable doc for a class, it **reports the exact `@see docs/<doc>.md` line** the class PHPDoc should
+carry, and the dev adds (or fixes) it. The link is repo-root-relative and points at the doc that
+documents the file — it pairs with the doc's own code-anchor back to the class
+([`./doc-method.md`](./doc-method.md) → Cross-referencing), giving a two-way **code ⇄ doc** link.
 
 ## Project-specific — the `apiRequest()` rule
 

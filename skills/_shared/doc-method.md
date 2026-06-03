@@ -80,6 +80,11 @@ operator's. The README orients; the knowledge lives in the individual docs.
 - **Code anchors**: when a doc names a class/file, use the repo-relative path the existing docs use
   (`app/Integrations/Mediators/HyphaMediator.php`) so a reader can jump to it. Code is the authority on
   behaviour; the doc explains the *why* and the *shape*.
+- **The reverse `@see` backlink (code → doc)**: a doc that documents a single class pairs with an
+  `@see docs/<this-doc>.md` line in that class's PHPDoc, for a two-way **code ⇄ doc** link. That line
+  is owned by the **coding standard**
+  ([`./coding-standards.md`](./coding-standards.md) → PHPDoc), written by the code author — **not** by
+  `doc-writer`, which never edits code. `doc-writer` only **reports** the exact `@see` line it expects.
 - **Section links** (`[text](file.md#section-anchor)`) when a specific section is meant.
 
 ## Match the nearest neighbour (replaces the old per-type templates)

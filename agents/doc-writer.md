@@ -88,6 +88,15 @@ You write **only** inside the repo's **durable** `docs/` folders (resolved from 
    already exists — prefer updating the stale section in place. A new doc gets added to the folder
    README index.
 
+## The code → doc backlink (`@see`) — you report it, you never write it
+
+When the doc you create or update documents a **specific class/file**, that class's PHPDoc is required
+(by the team coding standard — [`../skills/_shared/coding-standards.md`](../skills/_shared/coding-standards.md)
+→ "PHPDoc — mandatory on every declaration") to carry an `@see docs/<this-doc>.md` line pointing back
+at you. **You do not edit the `.php`** — that crosses your hard write boundary. Instead, **report the
+exact line** the code author should add, so the two-way **code ⇄ doc** link gets wired. Give the
+repo-root-relative path of the doc you just wrote.
+
 ## After writing
 
 Report exactly what changed, so it can be reviewed and committed by the dev:
@@ -102,6 +111,9 @@ Updated:
 - `docs/architecture/<doc>.md` — [what changed, and which shipped change drove it]
 - `docs/ecosystem/events-catalog.md` — recorded the cross-boundary contract   # if cross-boundary
 
+Add this `@see` backlink to the class PHPDoc (code author — I don't touch code):
+- `app/Integrations/Mediators/VerizonMediator.php` → `@see docs/integrations/verizon/architecture.md`
+
 Unverified / open questions:
 - [anything written that could not be confirmed against code]
 
@@ -109,4 +121,4 @@ Left unstaged for your commit (no git add / commit performed).
 ```
 
 Anything that could not be confirmed must appear under "Unverified" — never buried silently in the
-prose.
+prose. Omit the `@see` backlink block only when the doc documents no single class/file.
