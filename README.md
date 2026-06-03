@@ -13,8 +13,8 @@ dial decides how much the skill decides for you vs. interrogates you with trade-
 ## Install
 
 ```text
-/plugin marketplace add genkovich/sdd
-/plugin install sdd@sdd
+/plugin marketplace add SashaCN/claude.integrator_sdd
+/plugin install sdd@integrator-sdd
 ```
 
 ## Start here
