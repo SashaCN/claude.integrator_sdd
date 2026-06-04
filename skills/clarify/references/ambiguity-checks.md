@@ -46,9 +46,9 @@ Priority for the step-4 merge (highest-impact first): **conflicting-requirement 
 
 ---
 
-## Devil's-advocate subagent — prompt body
+## Devil's-advocate subagent — prompt body (fallback dispatch)
 
-> Everything below the line is the `Agent` prompt (`subagent_type: "general-purpose"`, clean context). The skill substitutes `<slug>` and passes the assembled text. The subagent **Reads the spec itself** — the skill inlines nothing (no paraphrase poisoning), per the dispatch discipline in [`../../_shared/critic.md`](../../_shared/critic.md). Unlike the coherence critic, this agent hunts **ambiguity / build-divergence**, not cross-section drift.
+> The **primary** dispatch is `subagent_type: "sdd:devils-advocate"` (the named agent carries its own system prompt — see `SKILL.md` step 3); the prompt body below is used **only for the fallback** `subagent_type: "general-purpose"` `Agent` when the named agent is unavailable at runtime. Everything below the line is that fallback prompt, passed verbatim (clean context) — so it must stay **self-contained**: no relative links inside it. The skill substitutes `<slug>` and passes the assembled text. The subagent **Reads the spec itself** — the skill inlines nothing (no paraphrase poisoning), per the dispatch discipline in [`../../_shared/critic.md`](../../_shared/critic.md) (this link is skill-side context, not part of the prompt). Unlike the coherence critic, this agent hunts **ambiguity / build-divergence**, not cross-section drift.
 
 ---
 

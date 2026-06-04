@@ -15,7 +15,7 @@ status: "todo"
 ## Why
 
 <!-- instruction: 1–2 sentences. Link the upstream source, don't paste it:
-derives from [spec §AC-01](../spec.md), [sad §6](../sad.md), [ADR-0001](../adr/0001-....md). -->
+derives from [spec §AC-01](../spec.md), [sad §6](../sad.md), [ADR-0001](../../../adr/0001-....md). -->
 
 ## What
 

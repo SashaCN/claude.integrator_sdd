@@ -49,8 +49,10 @@ On the keepgo-eu / Droam repos, review against the *documented* rules, not gener
 A short report, findings only (no preamble), each tagged with its severity:
 
 ```
-- **[CRITICAL · stage-N] <headline>** — file:line; AC: <id or n/a>; problem: <what>; suggested: <fix>.
+- **[<CRITICAL|IMPORTANT|MINOR> · stage-N] <headline>** — file:line; AC: <id|n/a>; problem: <what>; suggested: <fix>.
 ```
+
+(The same line shape is the canonical one in the skill's `review-dimensions.md` — keep them in sync.)
 
 Cite a file:line and, where relevant, the AC or contract clause. If the change is clean, say so plainly: `REVIEW_CLEAN: <one-line scope>`. Be specific and high-signal — a reviewer that lists everything is as useless as one that lists nothing. Prioritise correctness and AC-compliance over style. A **CRITICAL** or **IMPORTANT** finding returns the change to the developer.
 

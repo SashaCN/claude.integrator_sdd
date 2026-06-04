@@ -44,8 +44,8 @@ Claude picks one approach and writes a 3–5 sentence rationale, then confirms i
 
 - **`researcher` gap** → cited in the §1 ¶3 recommendation; a competitor's deliberate omission may seed a §3 Non-goal.
 - **`strategist` approaches** → the option set the recommendation chooses from (and the runners-up seed §8 if the user wants them tracked).
-- **`analyst` matrix** → cited in §1 ¶3; a consistently `−` lens flags a §6 NFR or §11 risk to watch.
-- **`devils-advocate` vectors** → the sharpest one is reserved for §6.1 Security/privacy + abuse cases (or §11 Risks); the rest seed §8 Open questions.
+- **`analyst` matrix** → cited in §1 ¶3; a consistently `−` lens flags a §6 NFR to watch (or a §8 Open-question row if it can't be quantified yet — the spec template ends at §8; risks as a section live downstream in `sad.md` §11).
+- **`devils-advocate` vectors** → the sharpest one is reserved for §6.1 Security/privacy + abuse cases; the rest seed §8 Open questions.
 - **RICE / feasibility** → cited in §1 ¶3; the RICE score also feeds the roadmap's Next-ordering when `specify` registers the feature.
 
 ## Discipline

@@ -41,7 +41,12 @@ On the keepgo-eu / Droam repos, **consult the in-repo docs before scanning code*
 
 ## What you return (your final message IS the map)
 
-A tight structured summary:
+**The dispatch prompt's requested shape governs.** If the prompt asks for a specific item list
+(e.g. `survey`'s (a)–(h) sweep — datastores, inter-module comms, the frontend/design-system
+precedent), return exactly that list; the four parts below are the **default** when the prompt
+names no shape. (A repo-wide `survey` fan-out also overrides the ~5–8-file cap — scale to the ask.)
+
+A tight structured summary (default shape):
 
 - **Module layout** — where modules live, the per-module layer dirs, the self-wiring pattern.
 - **Closest precedent** — the existing feature most like the new one + its file:line anchors.

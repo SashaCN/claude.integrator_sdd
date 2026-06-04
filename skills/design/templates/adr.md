@@ -13,10 +13,11 @@ feature_size: "<from .size: XS/S/M/L/XL>"
 ticket: "<tracker ticket that triggered the feature>"
 ---
 
-# NNNN — <title in imperative: e.g. "Use a sliding-window counter for rate limiting">
+# NNNN — <title in decision-form: the chosen solution as a noun phrase, e.g. "Sliding-window counter for rate limiting">
 
-<!-- IMPORTANT: the title describes the DECISION, not the problem. -->
-<!-- ✓ "Store content as a table of typed blocks"  -->
+<!-- IMPORTANT: the title names the DECISION (the chosen solution), not the problem. -->
+<!-- Same rule as the filename: NNNN-time-sortable-ids.md ✓ vs NNNN-id-strategy.md ✗ -->
+<!-- ✓ "Typed-blocks table for content storage"    -->
 <!-- ✗ "Content storage strategy"                  -->
 
 - **Status:** Accepted

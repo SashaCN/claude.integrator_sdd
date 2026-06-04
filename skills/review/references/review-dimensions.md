@@ -24,7 +24,11 @@ A stage-1 finding means the feature does not yet meet its spec — it blocks shi
 Reuse the clean-context discipline from [`../../_shared/critic.md`](../../_shared/critic.md): the reviewer has read-only tools, re-reads `spec.md` / contracts / ADRs itself, and emits **cited** findings only:
 
 ```
-- **[stage-N] <headline>** — file:line; AC: <id|n/a>; problem: <what>; suggested: <fix>.
+- **[<CRITICAL|IMPORTANT|MINOR> · stage-N] <headline>** — file:line; AC: <id|n/a>; problem: <what>; suggested: <fix>.
 ```
+
+The severity word comes from the reviewer agent's taxonomy (CRITICAL / IMPORTANT / MINOR — see
+`agents/reviewer.md`); the skill's gate keys on **stage-1** (an unresolved stage-1 finding blocks
+ship), severity orders the resolution queue.
 
 A clean review returns `REVIEW_CLEAN: <scope>`. Drop any finding without a `file:line` + a concrete reason — it isn't actionable. Prioritise correctness and AC-compliance over style; judge against the artifacts, not personal taste (if the spec says hide-existence, a 404-style response is correct, not a bug).

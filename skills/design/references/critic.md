@@ -1,6 +1,6 @@
 # design — delta over the shared critic
 
-Read [`../../_shared/critic.md`](../../_shared/critic.md) for the canonical dispatch (one clean-context `Agent`, `subagent_type: "general-purpose"`, reads upstream files itself) and the F1–F6 skeleton. design supplies only the deltas below; the skill fills the placeholders and dispatches.
+Read [`../../_shared/critic.md`](../../_shared/critic.md) for the canonical dispatch (one clean-context `Agent`, primary `subagent_type: "sdd:critic"`, fallback `"general-purpose"` if unavailable; reads upstream files itself) and the F1–F6 skeleton. design supplies only the deltas below; the skill fills the placeholders and dispatches.
 
 ## Placeholders
 
@@ -28,7 +28,7 @@ Three sub-probes — cite the offending line + the upstream source it contradict
 
 - **NFR-number leak.** §10 Quality scenarios cite a number that is **not** in spec §6 NFR (an invented target — e.g. a p99 figure when the spec only specifies p95). The spec's numbers go in verbatim; no rounding, no inventing.
 - **Strawman ADR.** Any ADR in `docs/adr/` lists a `Considered options` line that an existing constraint already excludes (e.g. a datastore the §2/CONTEXT constraints rule out; a cache tier with no §4 strategic seed for it). Strawmen dilute the ADR genre.
-- **§2-constraint-vs-repo contradiction.** §2 Constraints contradicts the repo's conventions (as reported by the Step-4 brownfield scan, or the project convention file if known) **without** an Override note pointing at §11 Risks or a §1 ¶4 override bullet.
+- **§2-constraint-vs-repo contradiction.** §2 Constraints contradicts the repo's conventions (as reported by the Step-3 brownfield scan, or the project convention file if known) **without** an Override note pointing at §11 Risks or a §1 ¶4 override bullet.
 
 ## F1 specialization — strategic-vector drift
 

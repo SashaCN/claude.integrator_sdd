@@ -62,7 +62,7 @@ SDD implement — feature: notification-preferences
   tdd           = on
   isolation     = worktree
   integration   = auto (docker: reachable)
-  commit        = per_task  (branch: proof/sdd-notification-preferences)
+  commit        = propose-once  (branch: feature/NOTIF-42-notification-preferences)
   tasks         = 6   phases = 4   longest_chain = 4
 ```
 

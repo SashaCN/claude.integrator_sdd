@@ -6,7 +6,7 @@ The authoritative format for each section is the `<!-- … -->` comment in [`../
 
 1. **`CONTEXT.md` `## Glossary`** — canonical for role names + domain terms. Anything that contradicts it loses.
 2. **`spec.md`** — §2 Goals, §3 Non-goals, §6 NFR (numeric targets + measurement), §6.1 Security/privacy + abuse cases, §7 KPIs, §8 Open questions, and any §1 ¶4 «Decision override» bullets.
-3. **The brownfield scan** (the Step-4 Explore subagent) — primary language + frameworks + versions; module layout; layering/ports conventions; data stores; inter-module communication style; whatever in the repo constrains this feature. Greenfield → null; note `<!-- brownfield: N/A — greenfield repo -->` in §3 and skip repo-pattern citations.
+3. **The brownfield scan** (the Step-3 Explore subagent) — primary language + frameworks + versions; module layout; layering/ports conventions; data stores; inter-module communication style; whatever in the repo constrains this feature. Greenfield → null; note `<!-- brownfield: N/A — greenfield repo -->` in §3 and skip repo-pattern citations.
 4. **Earlier-section in-memory decisions** — §4 strategy constrains §5/§6/§7/§8; §5 boundaries constrain §6 flows; §10 scenarios reference §1 quality goals. Read your own in-memory draft for later sections (no re-reading the file).
 
 ## Per-section sources

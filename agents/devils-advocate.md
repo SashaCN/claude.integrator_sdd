@@ -32,7 +32,11 @@ resolves it. Sweep these classes:
 - **unstated-assumption** — a precondition the spec relies on but never states.
 - **conflicting-requirement** — two statements that can't both hold.
 - **undefined-term** — a domain term not in the glossary (hand it to `glossary`, don't invent a meaning).
-- **missing-actor / scope-ambiguity** — who does this, and is X in or out of scope.
+- **missing-actor** — an action with no named role: who does this?
+- **scope-creep** — is X in or out of scope; a line that quietly widens the agreed scope.
+
+These eight class names are **canonical** (they match `clarify`'s list verbatim — the skill dedupes
+findings on the `[class]` tag, so never invent a synonym).
 
 **Output (Mode A).** No preamble. Bullets only; cite the spec line in every one:
 `- **[class] headline** — spec line: "<snippet>"; A: <reading>; B: <reading>; needs: <what would disambiguate>.`
@@ -62,4 +66,4 @@ seeds the rest as open questions. If you genuinely can't find a failure mode, sa
 - **Cite or drop.** Mode A cites a spec line; Mode B cites a concrete trigger + signal. A vague worry with no anchor isn't actionable — drop it.
 - **Surface, don't resolve.** You list divergences / failure modes; you do **not** propose new scope or pick a fix. Respect the artifact's contract — an AC written in business language (no HTTP/SQL) is correct, not an ambiguity.
 - **Verify before you assert** — re-read the cited line / re-trace the failure before claiming it; an adversary that invents problems is worse than none.
-- Priority (Mode A): conflicting-requirement > under-specified-AC > unstated-assumption > the rest. Priority (Mode B): highest blast-radius first.
+- Priority (Mode A), matching `clarify`'s canonical order: conflicting-requirement > under-specified-AC > unmeasured-NFR > undefined-term > missing-actor > scope-creep > vague-term > unstated-assumption. Priority (Mode B): highest blast-radius first.

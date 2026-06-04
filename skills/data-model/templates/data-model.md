@@ -16,27 +16,27 @@ feature_size: "<from .size>"
 erDiagram
     <PARENT> ||--o{ <ENTITY> : has
     <ENTITY> {
-        uuid id PK
-        varchar name
-        timestamptz created_at
+        <pk-type> id PK
+        <string-type> name
+        <timestamp-type> created_at
     }
 ```
 
 ## Entities
 
-<!-- instruction: one subsection per entity, grouped by aggregate root. Types are written in
-your target database's vocabulary (the examples below use Postgres-style names; substitute your
-DB's equivalent). The examples are ILLUSTRATIVE, not mandates — PK type, audit columns
-(created_at / updated_at / none), and constraint usage all follow the REPO's conventions. -->
+<!-- instruction: one subsection per entity, grouped by aggregate root. Replace each <…-type>
+placeholder with your target database's vocabulary, following the REPO's detected conventions —
+PK type, audit columns (created_at / updated_at / none), and constraint usage are the repo's
+call, never this template's. -->
 
 ### `<entity>`
 
 | Column | Type | Constraints | Notes |
 |---|---|---|---|
-| `id` | UUID | PK, app-generated (UUID v7) | <...> |
-| `<col>` | VARCHAR(N) | NOT NULL | bound N from a spec §5 validation limit |
-| `<fk>_id` | UUID | NOT NULL, FK → `<other>(id)` | indexed below |
-| `created_at` | timestamptz | NOT NULL DEFAULT now() | |
+| `id` | `<pk-type>` | PK, <generation per repo convention> | <...> |
+| `<col>` | `<string-type(N)>` | NOT NULL | bound N from a spec §5 validation limit |
+| `<fk>_id` | `<pk-type>` | NOT NULL, FK → `<other>(id)` | indexed below |
+| `created_at` | `<timestamp-type>` | <per repo convention> | |
 
 **Aggregate root:** <which entity owns this one, or "root">.
 **Access patterns:** <pattern> → index `<idx_name>` on `<columns>`.

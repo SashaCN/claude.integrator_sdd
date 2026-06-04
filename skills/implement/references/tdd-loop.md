@@ -44,7 +44,7 @@ Any hard-gate failure (unit red, or integration red when it ran, or lint/vet err
 
 ## COMMIT — one commit for the whole feature
 
-This fork does **not** commit per task. Each task runs `SELECT → RED → GREEN → REFACTOR → GATE` and updates `tracker.md` → `done`; committing happens **once**, when every task is gate-clean. Stage the feature's code and **propose** a single commit in the team format:
+This fork does **not** commit per task. Each task runs `SELECT → RED → GREEN → REFACTOR → GATE` and updates `tasks/tracker.md` → `done`; committing happens **once**, when every task is gate-clean. Stage the feature's code and **propose** a single commit in the team format:
 
 ```
 [TASK-NOTIF-42] Add Telegram notification type for order events

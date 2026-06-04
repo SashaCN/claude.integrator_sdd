@@ -178,17 +178,21 @@ def main() -> int:
     # docs/features/<slug>/ folder (the skills/*/templates/ scaffolds link to those).
     print("== links ==")
     LINK_RE = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
+    CODE_SPAN_RE = re.compile(r"`[^`\n]*`")          # inline code spans hold format ILLUSTRATIONS, not links
     LINK_ALLOW = {"./CONTEXT.md", "../spec.md", "../sad.md", "../data-model.md", "../tasks.json"}
-    LINK_ALLOW_PREFIX = ("../contracts/", "../adr/", "./features/")
+    LINK_ALLOW_PREFIX = ("../contracts/", "../adr/", "../../../adr/", "./features/")
     link_files = sorted(set(skill_glob + sorted((ROOT / "agents").glob("*.md")) + [ROOT / "README.md"]))
     n_links = 0
     broken: list[str] = []
     for f in link_files:
-        for m in LINK_RE.finditer(f.read_text()):
+        # Strip inline code spans first: `[text](path.md)` inside backticks is an example of link
+        # syntax (doc-method.md teaches it), not a navigable link. A real link whose TEXT is a code
+        # span — [`file.md`](real/file.md) — survives: only the bracketed span is removed.
+        for m in LINK_RE.finditer(CODE_SPAN_RE.sub("", f.read_text())):
             target = m.group(1).strip()
             if target.startswith(("http://", "https://")) or target.startswith("#"):
                 continue
-            if "<" in target:                        # placeholder, e.g. docs/features/<slug>/…
+            if "<" in target or "NNNN" in target:    # placeholder, e.g. docs/features/<slug>/…, NNNN-other.md
                 continue
             path_part = target.split("#", 1)[0]
             if not path_part or not (path_part.endswith(".md") or path_part.endswith("/")):

@@ -1,8 +1,10 @@
 # SDD — Spec-Driven Development for Claude Code
 
 A self-contained Claude Code plugin that carries a feature from a one-line idea to
-**reviewed, verified, shipped** code through **16 atomic, stack-agnostic skills** and a
-**TDD implementation engine** — with a living roadmap above the per-feature flow.
+**reviewed, verified, shipped** code through **17 atomic, stack-agnostic skills** and a
+**TDD implementation engine** — with a living roadmap above the per-feature flow and a
+living-documentation layer (`document` + the `doc-writer` subagent) that keeps the repo's
+durable `docs/` true to what shipped.
 
 Every skill is Socratic (it walks decisions with you, it doesn't dump a wall of output),
 gated (a stage hard-refuses when its prerequisite artifact is missing), and stack-agnostic
@@ -91,6 +93,7 @@ flowchart LR
 |---|---|---|---|
 | 10 | **review** | An **independent, clean-context** code review of the *whole* change against spec/AC + quality | the diff + `spec.md` → review record, `PASS` / `CHANGES REQUESTED` |
 | 11 | **ship** | **Verifies the feature actually runs** (not just green tests), writes the changelog, opens the PR | the reviewed change → changelog + PR (never auto-merges) |
+| 12 | **document** | **Living documentation**: checks whether the shipped change makes a durable doc under `docs/` wrong or incomplete, and dispatches `doc-writer` to update/create it (also runs automatically from `ship`) | the shipped diff + spec/sad/adr → updated `docs/` (proposed, left unstaged) |
 
 `review` can bounce back to `implement` if it finds an unmet acceptance criterion. `ship` is the
 end: a reviewed, verified change with a changelog and an open PR — merging to main stays your call.

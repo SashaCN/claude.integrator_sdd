@@ -6,7 +6,7 @@
 
 ## Why a separate critic
 
-The Socratic loop ([socratic-loop.md](./socratic-loop.md)) walks one section at a time and never returns to a written section. So it **cannot** see cross-section drift introduced by later edits, nor structural gaps the author missed while self-editing. The critic is a single `Agent` (`subagent_type: "general-purpose"`, **clean context** — it never saw the conversation). It re-reads the upstream artifacts itself (no paraphrase poisoning) and probes the draft against the edits-log.
+The Socratic loop ([socratic-loop.md](./socratic-loop.md)) walks one section at a time and never returns to a written section. So it **cannot** see cross-section drift introduced by later edits, nor structural gaps the author missed while self-editing. The critic is a single `Agent` (primary `subagent_type: "sdd:critic"` — the named agent carries `model: opus` + `effort: high`; fallback `"general-purpose"` with the assembled prompt below if the named agent is unavailable; **clean context** either way — it never saw the conversation). It re-reads the upstream artifacts itself (no paraphrase poisoning) and probes the draft against the edits-log.
 
 ## How a skill dispatches it
 
