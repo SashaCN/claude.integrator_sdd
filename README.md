@@ -113,7 +113,26 @@ end: a reviewed, verified change with a changelog and an open PR — merging to 
 
 ### Express lane — for changes too small for the backbone
 
-- **fix** — a **small, self-contained change** (a bug fix, a config/copy tweak, a rename) that doesn't warrant `specify → … → ship`. You describe the task in prose; `fix` locates the code (`explorer`), **sizes it**, validates it's genuinely small and unambiguous (asking you when it isn't, deeper on `--depth=hard` via `devils-advocate`), implements it **test-first** (`test-author` + `implementer`; a trivial config/docs/rename may skip the test), runs an **independent review** (`reviewer`), syncs any durable doc the change touched (`doc-writer`), and **proposes one `[FIX-{JIRA_KEY}]` commit**. It writes no spec/tasks trail. It is gated on **size, not on a prior artifact**: the moment the change proves **M+** (touches an API/cross-service contract, needs a DB migration, spans ≥2 modules, or is a breaking change) it **refuses and routes you to `/sdd:specify`** — the fast lane never quietly does a big change.
+Not every change deserves a spec. **fix** is the plugin's one off-backbone skill: a small,
+self-contained change (a bug fix, a config/copy tweak, a rename) still gets a test, an independent
+review, and a synced doc — but without the spec/design/tasks artifacts it doesn't need. You describe
+the task in prose and it runs a single pass, reusing the same agents the backbone uses:
+
+```text
+locate + size (explorer) → validate / clarify → implement test-first (test-author + implementer)
+   → independent review (reviewer) → sync durable docs (doc-writer) → propose [FIX-…] commit
+```
+
+- **Gated on size, not on a prior artifact.** `fix` is the only skill with no upstream gate — in its place stands the tripwire below.
+- **Depth-tunable validity check** — light inline questions by default; a full `devils-advocate` ambiguity hunt on `--depth=hard`. An invalid task (already done / contradicts the code) is reported and stopped, never faked.
+- **TDD by default**, with a trivial-change escape — a pure config/docs/rename, or `tdd: false` in settings, may skip the test (and says why). It never weakens a test to force green.
+- **Never self-certifies** — the `reviewer` pass runs even on a one-liner; a CRITICAL/IMPORTANT finding loops back with no `/clear`.
+- **Never auto-commits** — it *proposes* one `[FIX-{JIRA_KEY}]` commit; git and the remote stay yours.
+
+> **The size tripwire.** The moment a change proves **M+** — it touches an API / cross-service
+> contract, needs a DB migration, spans ≥2 modules, or is a breaking change for consumers — `fix`
+> **stops and routes you to `/sdd:specify`** and the backbone. The fast lane never quietly does a
+> big change; that's what keeps it safe to reach for.
 
 ## Interview depth (easy / medium / hard)
 
@@ -333,6 +352,12 @@ Docker probe for the integration tier.
 > **`/clear` between stages** — each stage is gated, re-reads its inputs from disk, and ends by
 > printing the next `/sdd:…` command to copy (the handoff block). Loop-backs (`review` → `implement`)
 > stay in context; utilities make `/clear` optional.
+
+**Small change?** Skip the backbone — one command does validate → implement → review → document:
+
+```text
+/sdd:fix raise the BillingClient retry backoff cap from 30s to 60s
+```
 
 Artifacts land in `docs/features/<slug>/`.
 
