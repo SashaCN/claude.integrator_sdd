@@ -1,7 +1,7 @@
 # SDD — Spec-Driven Development for Claude Code
 
 A self-contained Claude Code plugin that carries a feature from a one-line idea to
-**reviewed, verified, shipped** code through **17 atomic, stack-agnostic skills** and a
+**reviewed, verified, shipped** code through **18 atomic, stack-agnostic skills** and a
 **TDD implementation engine** — with a living roadmap above the per-feature flow and a
 living-documentation layer (`document` + the `doc-writer` subagent) that keeps the repo's
 durable `docs/` true to what shipped.
@@ -110,6 +110,10 @@ end: a reviewed, verified change with a changelog and an open PR — merging to 
 - **classify-size** — size the feature XS/S/M/L/XL (writes `.size`); later skills read it to decide MVP vs full depth. Run it at the start, or any time scope changes.
 - **glossary** — capture a domain term in `CONTEXT.md` with a definition. Run it whenever a new term shows up; `design` and the spec read the glossary.
 - **decide-adr** — write a standalone ADR after the fact, when `tasks` (or a review) flags a decision that needs recording but wasn't captured during `design`.
+
+### Express lane — for changes too small for the backbone
+
+- **fix** — a **small, self-contained change** (a bug fix, a config/copy tweak, a rename) that doesn't warrant `specify → … → ship`. You describe the task in prose; `fix` locates the code (`explorer`), **sizes it**, validates it's genuinely small and unambiguous (asking you when it isn't, deeper on `--depth=hard` via `devils-advocate`), implements it **test-first** (`test-author` + `implementer`; a trivial config/docs/rename may skip the test), runs an **independent review** (`reviewer`), syncs any durable doc the change touched (`doc-writer`), and **proposes one `[FIX-{JIRA_KEY}]` commit**. It writes no spec/tasks trail. It is gated on **size, not on a prior artifact**: the moment the change proves **M+** (touches an API/cross-service contract, needs a DB migration, spans ≥2 modules, or is a breaking change) it **refuses and routes you to `/sdd:specify`** — the fast lane never quietly does a big change.
 
 ## Interview depth (easy / medium / hard)
 

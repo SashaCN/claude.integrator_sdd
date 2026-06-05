@@ -103,6 +103,12 @@ Rules for filling it:
   to iterate; *Run next* = `/sdd:implement <slug>` (fix), then re-review the changed surface.
 - **Terminal** (`ship`): there is no `/sdd` successor. *Run next* becomes **Done** — the PR command/URL
   + «merging to main is your call»; still print *What I did* + *Review* (the changelog + PR).
+- **Express lane** (`fix`): the small-change lane runs validate→implement→review→document in one pass,
+  off the backbone. Terminal — no `/sdd` successor: *Run next* = **Done** with the proposed
+  `[FIX-{JIRA_KEY}]` commit (the dev commits). The one exception is a review loop-back — a CRITICAL/
+  IMPORTANT `reviewer` finding → fix the surface and re-review **with no `/clear`** (you're iterating),
+  like the `review → implement` loop-back. If the size tripwire fires, there is no handoff block — the
+  skill refuses and routes to `/sdd:specify <slug>`.
 - **Utility** (`classify-size`, `glossary`, `decide-adr`, `roadmap`, `document`): called ad-hoc, not a gate.
   `/clear` is **optional** (recommend it only if the context is large); *Run next* = «resume your
   backbone stage», naming the likely one (e.g. `/sdd:design <slug>`). Print *What I did* + *Review*
@@ -130,6 +136,7 @@ Rules for filling it:
 | `decide-adr` | `docs/adr/NNNN-<title>.md` (committed) | resume — `/sdd:tasks <slug>` or `/sdd:plan-tests <slug>` |
 | `roadmap` | `docs/roadmap.md` | resume your backbone stage |
 | `document` | the durable `docs/` docs synced/created (cross-boundary → `docs/ecosystem/`), or the no-op reason | resume — usually `/sdd:ship <slug>`, else done |
+| `fix` (express lane) | the working diff (code + tests) + any durable `docs/` doc synced | **Done** — propose `[FIX-{JIRA_KEY}]` commit (the dev commits); loop back to `fix` on a review finding |
 
 ## Discipline
 
