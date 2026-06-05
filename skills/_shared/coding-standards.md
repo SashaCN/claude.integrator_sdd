@@ -150,8 +150,8 @@ final class VerizonMediator extends AbstractMediator implements SimCardChangeSta
 ### Imports
 
 - Always `use`-import at the top; **never** an FQCN inline in the code body.
-- In PHPDoc (`@param`/`@return`/`@var`/`@throws`/`@see`) use FQCN with a leading `\` for IDE
-  resolution.
+- In PHPDoc (`@param`/`@return`/`@var`/`@throws`/`@see`) use the **short imported name** — every
+  class must be `use`-imported at the top of the file. Never use FQCN with a leading `\` in docblocks.
 
 ### PHPDoc — mandatory on every declaration
 
@@ -164,15 +164,17 @@ final class VerizonMediator extends AbstractMediator implements SimCardChangeSta
 **Every method / function docblock carries:**
 
 - A one-line summary of what it does.
-- `@param` for **every** parameter — `@param  <\FQCN-or-type>  $name  <description>` (FQCN with a
-  leading `\`, columns aligned).
+- `@param` for **every** parameter — `@param  <Type>  $name  <description>` (short imported name,
+  columns aligned).
 - `@return` — **always**, including `@return void` / `@return never`.
-- `@throws` — **one line per throwable** the body can raise (the typed domain exceptions, plus
-  `\Throwable` where it propagates). Omit only when the body throws nothing.
+- `@throws` — **one line per throwable** the body can raise; use the **short imported name**
+  (e.g. `@throws ProviderUnavailableException`), plus `@throws Throwable` where it propagates.
+  Omit only when the body throws nothing.
 
 **Every class / interface / trait / enum docblock carries:**
 
 - A one-line summary **naming the type** and its responsibility.
+- `@class ClassName` — the simple (unqualified) class name.
 - `@package` — the component / namespace group it belongs to.
 - `@see docs/<doc>.md` — a repo-root-relative link to the **durable doc** under `docs/` that documents
   this file, **when such a doc exists** (the code→doc backlink — see below). Omit only while the class
@@ -186,11 +188,11 @@ property needs a block only where it carries non-obvious meaning.
 /**
  * Fetch the provider's monthly usage for a SIM card.
  *
- * @param  string                       $iccid  The SIM ICCID.
- * @param  \Carbon\CarbonImmutable|null  $from   Window start; null = current cycle.
- * @return \App\DTOs\ProviderMonthlyUsageDTO
- * @throws \App\Exceptions\ProviderUnavailableException
- * @throws \Throwable
+ * @param  string               $iccid  The SIM ICCID.
+ * @param  CarbonImmutable|null  $from   Window start; null = current cycle.
+ * @return ProviderMonthlyUsageDTO
+ * @throws ProviderUnavailableException
+ * @throws Throwable
  */
 public function getMonthlyUsage(string $iccid, ?CarbonImmutable $from = null): ProviderMonthlyUsageDTO
 ```
@@ -199,6 +201,7 @@ public function getMonthlyUsage(string $iccid, ?CarbonImmutable $from = null): P
 /**
  * VerizonMediator — talks to the Verizon ThingSpace API for SIM lifecycle + usage.
  *
+ * @class   VerizonMediator
  * @package App\Integrations\Mediators
  * @see docs/integrations/verizon/architecture.md
  */
